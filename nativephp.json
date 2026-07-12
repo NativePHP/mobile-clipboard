@@ -1,0 +1,33 @@
+{
+    "namespace": "Clipboard",
+    "bridge_functions": [
+        {
+            "name": "Clipboard.WriteText",
+            "android": "com.nativephp.clipboard.ClipboardFunctions.WriteText",
+            "ios": "ClipboardFunctions.WriteText",
+            "description": "Write plain text to the system clipboard"
+        },
+        {
+            "name": "Clipboard.ReadText",
+            "android": "com.nativephp.clipboard.ClipboardFunctions.ReadText",
+            "ios": "ClipboardFunctions.ReadText",
+            "description": "Read plain text from the system clipboard"
+        }
+    ],
+    "android": {
+        "min_version": 26,
+        "permissions": [],
+        "dependencies": {
+            "implementation": []
+        }
+    },
+    "ios": {
+        "min_version": "18.2",
+        "info_plist": {},
+        "dependencies": {
+            "swift_packages": [],
+            "pods": []
+        }
+    },
+    "events": []
+}
