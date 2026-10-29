@@ -5,7 +5,7 @@ namespace NativePHP\Clipboard\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static bool writeText(string $text)
+ * @method static bool writeText(string $text, bool $sensitive = false, ?int $expiresIn = null)
  * @method static ?string readText()
  *
  * @see \NativePHP\Clipboard\Clipboard

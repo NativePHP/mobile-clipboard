@@ -29,11 +29,24 @@ if ($text !== null) {
 }
 ```
 
+### Copying secrets
+
+For one-time codes, passwords and recovery keys, mark the copy sensitive and/or let it expire:
+
+```php
+Clipboard::writeText($code, sensitive: true, expiresIn: 60);
+```
+
+- `sensitive: true`: on Android the clip carries `ClipDescription.EXTRA_IS_SENSITIVE`, so Android 13+ hides it in the copy preview and keyboards don't suggest it. On iOS the copy stays on this device (not shared over Universal Clipboard).
+- `expiresIn: 60`: the copy is removed after 60 seconds, **only if the clipboard still holds it**. Anything the user copied in the meantime is left alone.
+  - iOS: handled by the system (`UIPasteboard` expiration date), even if the app is suspended or closed.
+  - Android: the app clears it while its process is alive. If the user copies anything else first, or the app can't tell (it's in the background when the clipboard changes), nothing is cleared. Android 13+ also clears old clipboard contents on its own.
+
 ## Methods
 
-### `writeText(string $text): bool`
+### `writeText(string $text, bool $sensitive = false, ?int $expiresIn = null): bool`
 
-Writes plain text to the system clipboard. Returns `true` once the text is on the clipboard, `false` on failure.
+Writes plain text to the system clipboard. Returns `true` once the text is on the clipboard, `false` on failure. `$sensitive` and `$expiresIn` (seconds, at least 1) are optional; see "Copying secrets" above. An `$expiresIn` below 1 throws `InvalidArgumentException`.
 
 ### `readText(): ?string`
 
